@@ -1,0 +1,39 @@
+<html>
+<body>
+	<center><form name="myForm" onsubmit="getans(); return false" method="post">
+  Enter ID: <input type="text" name="bid">
+  <br></br>
+  <center><input type="submit" value="Submit" class="button"></center>
+</form></center>
+</body>
+<script>
+async function getans(){
+	var id = document.forms["myForm"]["bid"].value;
+	var url = 'http://127.0.0.1:8080/course/' + id;
+	alert(id);
+	fetch(url, {
+	method: 'GET',
+	headers: {
+		'Content-type': 'application/json; charset=UTF-8'
+	}
+}).then(function (response) {
+	if (response.ok) {
+		return response.json();
+	}
+	return Promise.reject(response);
+}).then(function (data) {
+	alert(data.authors);
+	alert(data.average_rating);
+	alert(data.bookID);
+	alert(data.isbn);
+	alert(data.language_code);
+	alert(data.price);
+	alert(data.ratings_count);
+	alert(data.title);
+}).catch(function (error) {
+	console.warn('Something went wrong.', error);
+});
+return false;
+}
+</script>
+</html>
